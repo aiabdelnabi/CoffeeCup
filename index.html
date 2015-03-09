@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+    <script type="text/javascript" src="script.js"></script>
+
+</head>
+<body>
+
+<div id="wrap" ng-app="CoffeeCup" ng-controller="MainCtrl" >
+
+<div class="title">
+    <p>Coffee Cup</p>
+</div>
+
+    <div class="coffee-Cup">
+        <div class="handle"></div>
+        <div class="glass"></div>
+
+        <div ng-repeat="i in ingredients">
+             <div class="liquid {{i.name}}" style="top:{{i.top}}px; margin-left: {{i.mLeft}}px; height: {{i.height}}px; width: {{i.width}}px; border-bottom-left-radius:{{i.curve}}px; border-bottom-right-radius:{{i.curve}}px;"></div>
+        </div>
+
+    </div>
+
+    <div class="SideMenu">
+        <div class="selectTypeBar">
+            <input class="BarItem" type="button" value="Custom Coffee" ng-click="ToggleView(true)">
+            <input class="BarItem" type="button" value="Ready Coffee" ng-click="ToggleView(false)">
+        </div>
+
+
+        <div class="customCoffe" ng-show="CustomView">
+            <div ng-repeat="i in ingredients">
+                 <p>{{ i.name  }} {{i.amount}}</p>
+                 <input  id="{{i.name}}" type="range"  ng-model="i.amount" ng-change="SetData(i.name)" min="0" max="100" />
+            </div>
+        </div>
+
+        <div class="readyMade">
+            <div ng-repeat="c in readyMadeCoffee"  ng-hide="CustomView">
+                <input class="Item" type="button" value="{{c.CoffeeName}}" ng-click="SetReadyMadeCoffee(c.CoffeeName)" />
+            </div>
+        </div>
+
+        <div class="MenuBar">
+                <p>Price</p>
+                <p>{{TotalPriceCalc()}}</p>
+        </div>
+
+        
+
+    </div>
+
+</div>
+
+</body>
+</html>
